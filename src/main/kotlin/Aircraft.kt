@@ -35,4 +35,8 @@ abstract class Aircraft(maxWeight: Int) : Transporter(maxWeight) {
             |Number of rows: $rows
             |Number of seats a row: $numberOfSeatsInARow
         """.trimMargin()
+
+    override fun move() {
+        println("Aircraft flying.")
+    }
 }
