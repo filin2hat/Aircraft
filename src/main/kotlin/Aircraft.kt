@@ -39,4 +39,15 @@ abstract class Aircraft(maxWeight: Int) : Transporter(maxWeight) {
     override fun move() {
         println("Aircraft flying.")
     }
+
+    fun getAvailableSeat(): Seat? {
+        val availableSeat = mutableListOf<Seat>()
+        seatScheme.forEachIndexed { rowIndex, row ->
+            row.forEachIndexed { seatIndex, passenger ->
+                if (passenger == null)
+                    availableSeat.add(Seat(rowIndex, 'A' + seatIndex))
+            }
+        }
+        return availableSeat.randomOrNull()
+    }
 }
