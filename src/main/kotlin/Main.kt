@@ -5,7 +5,7 @@ fun main() {
     println(boeing737.getInfo())
     boeing737.getSeatScheme()
 
-    println()
+    println("\n========================================================================\n")
 
     val zeppelin = createAndFillZeppelin()
     println(zeppelin.getInfo())
