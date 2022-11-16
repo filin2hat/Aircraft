@@ -1,5 +1,9 @@
+package aircrafts
+
+import Aircraft
+
 class Zeppelin : Aircraft(1500) {
-    override val brand: String = "Zeppelin"
+    override val brand: String = "aircrafts.Zeppelin"
     override val model: String = "NT"
     override val engineCount = 3
     override val altitude: Int = 2600

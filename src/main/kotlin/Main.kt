@@ -1,59 +1,54 @@
+import aircrafts.Boeing737
+import aircrafts.Zeppelin
 import documents.DeputyID
 import documents.ForeignPassport
 import kotlin.random.Random
 
 fun main() {
-    val boeing737 = createAndFillBoeing()
+    val boeing737 = Boeing737()
+    fillAircraft(boeing737)
     println(boeing737.getInfo())
     boeing737.getSeatScheme()
-    boeing737.getPassenger(Seat(0, 'c'))
-        ?.getInfo()
-        ?.let { println(it) }
-        ?: println("There is no passenger.")
+    printPassengerInfo(boeing737, Seat(0, 'c'))
+
     println("\n========================================================================\n")
 
-    val zeppelin = createAndFillZeppelin()
+    val zeppelin = Zeppelin()
+    fillAircraft(zeppelin)
     println(zeppelin.getInfo())
     zeppelin.getSeatScheme()
-    zeppelin.getPassenger(Seat(0, 'c'))
+    printPassengerInfo(zeppelin, Seat(0, 'c'))
+}
+
+fun printPassengerInfo(aircraft: Aircraft, seat: Seat) {
+    aircraft.getPassenger(seat)
         ?.getInfo()
         ?.let { println(it) }
         ?: println("There is no passenger.")
 }
 
-fun createAndFillBoeing(): Boeing737 {
-    val boeing737 = Boeing737()
-    val passengerCountBoeing = Random.nextInt(1, boeing737.capacity)
-    for (i in 0 until passengerCountBoeing) {
-        val seat = boeing737.getAvailableSeat() ?: return boeing737
+fun fillAircraft(aircraft: Aircraft) {
+    val passengersCount = Random.nextInt(1, aircraft.capacity)
+    for (i in 0 until passengersCount) {
+        val seat = aircraft.getAvailableSeat() ?: return
         val passenger = Passenger(
             name = "John",
             lastName = "Doe",
-            document = ForeignPassport(
-                series = Random.nextInt(1000, 9999).toString(),
-                number = Random.nextInt(100000, 999999).toString()
-            ),
+            document = getRandomDocument(),
             seat = seat
         )
-        boeing737.addPassenger(passenger)
+        aircraft.addPassenger(passenger)
     }
-    return boeing737
 }
 
-fun createAndFillZeppelin(): Zeppelin {
-    val zeppelin = Zeppelin()
-    val passengerCountZeppelin = Random.nextInt(1, zeppelin.capacity)
-    for (i in 0 until passengerCountZeppelin) {
-        val seat = zeppelin.getAvailableSeat() ?: return zeppelin
-        val passenger = Passenger(
-            name = "John",
-            lastName = "Doe",
-            document = DeputyID(
-                number = Random.nextInt(100000, 999999).toString()
-            ),
-            seat = seat
+fun getRandomDocument(): Document =
+    when (Random.nextInt(0, 2)) {
+        0 -> ForeignPassport(
+            series = Random.nextInt(1000, 9999).toString(),
+            number = Random.nextInt(100000, 999999).toString()
         )
-        zeppelin.addPassenger(passenger)
+
+        else -> DeputyID(
+            number = Random.nextInt(100000, 999999).toString()
+        )
     }
-    return zeppelin
-}

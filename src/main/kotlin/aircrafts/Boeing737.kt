@@ -1,3 +1,7 @@
+package aircrafts
+
+import Aircraft
+
 class Boeing737 : Aircraft(10000) {
     override val brand = "Boeing"
     override val model = "737"
