@@ -10,6 +10,9 @@ fun main() {
     println(boeing737.getInfo())
     boeing737.getSeatScheme()
     printPassengerInfo(boeing737, Seat(0, 'c'))
+    printPassengerInfo(boeing737, Seat(3, 'a'))
+    printPassengerInfo(boeing737, Seat(25, 'd'))
+    printPassengerInfo(boeing737, Seat(10, 'e'))
 
     println("\n========================================================================\n")
 
