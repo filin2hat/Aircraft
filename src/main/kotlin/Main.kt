@@ -1,15 +1,24 @@
+import documents.DeputyID
+import documents.ForeignPassport
 import kotlin.random.Random
 
 fun main() {
     val boeing737 = createAndFillBoeing()
     println(boeing737.getInfo())
     boeing737.getSeatScheme()
-
+    boeing737.getPassenger(Seat(0, 'c'))
+        ?.getInfo()
+        ?.let { println(it) }
+        ?: println("There is no passenger.")
     println("\n========================================================================\n")
 
     val zeppelin = createAndFillZeppelin()
     println(zeppelin.getInfo())
     zeppelin.getSeatScheme()
+    zeppelin.getPassenger(Seat(0, 'c'))
+        ?.getInfo()
+        ?.let { println(it) }
+        ?: println("There is no passenger.")
 }
 
 fun createAndFillBoeing(): Boeing737 {
@@ -20,7 +29,10 @@ fun createAndFillBoeing(): Boeing737 {
         val passenger = Passenger(
             name = "John",
             lastName = "Doe",
-            passport = "${Random.nextInt(1000, 9999)} ${Random.nextInt(100000, 999999)}",
+            document = ForeignPassport(
+                series = Random.nextInt(1000, 9999).toString(),
+                number = Random.nextInt(100000, 999999).toString()
+            ),
             seat = seat
         )
         boeing737.addPassenger(passenger)
@@ -36,7 +48,9 @@ fun createAndFillZeppelin(): Zeppelin {
         val passenger = Passenger(
             name = "John",
             lastName = "Doe",
-            passport = "${Random.nextInt(1000, 9999)} ${Random.nextInt(100000, 999999)}",
+            document = DeputyID(
+                number = Random.nextInt(100000, 999999).toString()
+            ),
             seat = seat
         )
         zeppelin.addPassenger(passenger)
