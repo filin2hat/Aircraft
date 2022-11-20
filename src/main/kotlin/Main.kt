@@ -37,10 +37,23 @@ fun fillAircraft(aircraft: Aircraft) {
         val passenger = Passenger(
             name = "John",
             lastName = "Doe",
-            document = getRandomDocument(),
+            document = getDocument(aircraft),
             seat = seat
         )
         aircraft.addPassenger(passenger)
+    }
+}
+
+fun getDocument(aircraft: Aircraft): Document {
+    return if (aircraft is Zeppelin) {
+        DeputyID(
+            number = Random.nextInt(100000, 999999).toString()
+        )
+    } else {
+        ForeignPassport(
+            series = Random.nextInt(1000, 9999).toString(),
+            number = Random.nextInt(100000, 999999).toString()
+        )
     }
 }
 
